@@ -19,8 +19,8 @@ return new class extends Migration
             $table->time('hora');
             $table->string('detalle');
             $table->string('estado');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('conductor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            // $table->foreign('conductor_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
