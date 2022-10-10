@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('correo')->unique();
             $table->string('apellido');
             $table->string('telefono');
-            $table->string('contraseña');
+            $table->string('password'); // Lo cambio para validar la confirmación
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
