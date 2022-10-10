@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CursoCtrl;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,17 +13,12 @@ use App\Http\Controllers\CursoCtrl;
 |
 */
 
-Route::get('/', HomeController::class);
-
-/*
-Route::get('cursos', [CursoCtrl::class, 'index']);
-Route::get('cursos/create', [CursoCtrl::class, 'create']);
-Route::get('cursos/{curso}', [CursoCtrl::class, 'show']);
-*/
-
-//forma mas limpia de agrupar nuestros controladores 
-Route::controller(CursoCtrl::class)->group(function(){
-    Route::get('cursos', 'index');
-    Route::get('cursos/create', 'create');
-    Route::get('cursos/{curso}', 'show');
+Route::get('/', function () {
+    return view('auth.login');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+require __DIR__.'/auth.php';
