@@ -3,13 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Cliente;
+use App\Models\Conductor;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use App\Models\Cliente;
-
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -52,6 +53,14 @@ class User extends Authenticatable
     ];
 
     public function cliente(){
-        $this->BelongsTo(Cliente::class);
+        return $this->hasOne(Cliente::class);
+    }
+
+    public function Administrador(){
+        return $this->hasOne(Administrador::class);
+    }
+
+    public function conductor(){
+        return $this->hasOne(Conductor::class);
     }
 }

@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'apellido' => 'Suarez Lazarte',
             'telefono' => '65085392',
             'email' => 'dario@correo.com',
-            'password' => Hash::make('S123456'),
+            'password' => Hash::make('S0123456789'),
         ])->assignRole('admin');
 
         Administrador::create([
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'apellido' => 'Salazar Vargas',
             'telefono' => '72669261',
             'email' => 'guido@correo.com',
-            'password' => Hash::make('S123456'),
+            'password' => Hash::make('S0123456789'),
         ])->assignRole('admin');
 
         Administrador::create([
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
             'apellido' => 'Suarez Torrelio',
             'telefono' => '76034449',
             'email' => 'julio@correo.com',
-            'password' => Hash::make('S123456'),
+            'password' => Hash::make('S0123456789'),
         ])->assignRole('admin');
 
         Administrador::create([
@@ -58,7 +58,7 @@ class UserSeeder extends Seeder
             'apellido' => 'Cutile Maldonado',
             'telefono' => '73606371',
             'email' => 'christian@correo.com',
-            'password' => Hash::make('C123456'),
+            'password' => Hash::make('C0123456789'),
         ])->assignRole('admin');
 
         Administrador::create([
@@ -70,7 +70,7 @@ class UserSeeder extends Seeder
             'apellido' => 'Vaca Ibañez',
             'telefono' => '62064184',
             'email' => 'emanuel@correo.com',
-            'password' => Hash::make('V123456'),
+            'password' => Hash::make('V0123456789'),
         ])->assignRole('admin');
 
         Administrador::create([

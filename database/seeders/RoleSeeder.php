@@ -61,7 +61,7 @@ class RoleSeeder extends Seeder
         ]);
 
         $role2 = Role::create([
-            'name' => 'tecnico'
+            'name' => 'conductor'
         ])->syncPermissions([
 
         ]);

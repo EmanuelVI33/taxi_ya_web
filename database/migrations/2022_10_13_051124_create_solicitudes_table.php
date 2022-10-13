@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('conductors', function (Blueprint $table) {
+        Schema::create('solicitudes', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('user_id');
             $table->foreignId('cliente_id', 'id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('ci');
-            $table->boolean('ocupado');
+            $table->integer('ci');
+            $table->string('estado');
             $table->string('fotoAntecedente');
             $table->string('fotoLicencia');
             $table->string('fotoTIC');
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conductors');
+        Schema::dropIfExists('solicitudes');
     }
 };
