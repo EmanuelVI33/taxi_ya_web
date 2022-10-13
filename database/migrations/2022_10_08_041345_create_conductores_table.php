@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('conductor', function (Blueprint $table) {
             $table->id();
-
             $table->integer('ci');
             $table->string('estado');
             $table->string('fotoAntecedente');
