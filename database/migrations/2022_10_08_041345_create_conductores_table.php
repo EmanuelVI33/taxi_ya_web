@@ -15,10 +15,15 @@ return new class extends Migration
     {
         Schema::create('conductors', function (Blueprint $table) {
             $table->id();
+<<<<<<< HEAD
             // $table->unsignedBigInteger('user_id');
             $table->foreignId('cliente_id', 'id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             $table->string('ci');
             $table->boolean('ocupado');
+=======
+            $table->integer('ci');
+            $table->string('estado');
+>>>>>>> main
             $table->string('fotoAntecedente');
             $table->string('fotoLicencia');
             $table->string('fotoTIC');

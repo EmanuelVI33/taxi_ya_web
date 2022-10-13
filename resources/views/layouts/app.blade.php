@@ -22,6 +22,7 @@
         <aside class="fixed h-screen w-16 lg:w-64 bg-gray-500" aria-label="Sidebar">
             <div class="h-screen overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
                 <ul class="space-y-2">
+<<<<<<< HEAD
                     {{-- Solicitar Servicios --}}
                     <li>
                         <button id="boton" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
@@ -61,137 +62,38 @@
                             </li>
                             @endrole
                         </ul>
+=======
+                    {{-- Mi Perfil --}}
+                    <li>
+                        <button id="btnUser" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+                            <i class="fa-regular fa-clipboard"></i>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Mi Perfil</span>
+                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                        </button>
+                        <ul id="user" class="hidden py-2 space-y-2">
+                            <li>
+                                <a href="{{ route('usuario.show', Auth()->user()) }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Ver mi Perfil</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('usuario.edit', Auth()->user()) }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Editar mi Perfil</a>
+                            </li>
+                        </ul>
+>>>>>>> main
                     </li>
-                     --}}
 
-                    {{-- Clientes --}}
-                    {{-- <li>
+                    {{-- Gestionar Clientes --}}
+                    <li>
                         <button id="btnCliente" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                            <i class="fa-sharp fa-solid fa-user"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Gestionar Clientes</span>
+                            <i class="fa-regular fa-clipboard"></i>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Visualizar Clientes</span>
                             <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         </button>
                         <ul id="cliente" class="hidden py-2 space-y-2">
                             <li>
-                                <a href="{{ route('cliente.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Visualiazar Clientes</a>
+                                <a href="{{ route('cliente.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Visualizar Clientes</a>
                             </li>
-                         
                         </ul>
-                    </li> --}}
-
-                    {{-- Empleados --}}
-                    {{-- <li>
-                        <button id="btnEmpleado" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                            <i class="fa-sharp fa-solid fa-user-tie"></i>
-                            
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Gestionar Empleados</span>
-                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </button>
-                        <ul id="empleado" class="hidden py-2 space-y-2">
-                            <li>
-                                <a href="{{ route('empleado.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Visualizar Empleados</a>
-                            </li>
-                            @role('administrador')
-                            <li>
-                                <a href="{{ route('empleado.create') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Registrar Empleado</a>
-                            </li>
-                            @endrole
-                        </ul>
-                    </li> --}}
-                    
-                    {{-- Administrar Roles --}}
-                    {{-- <li>
-                        <button id="btnRol" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                            <i class="fa-sharp fa-solid fa-users"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Administrar Roles</span>
-                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </button>
-                        <ul id="rol" class="hidden py-2 space-y-2">
-                            <li>
-                                <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Visualizar Roles</a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Editar Roles</a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Asignar Permisos</a>
-                            </li>
-                            <li>
-                                <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Agregar Rol</a>
-                            </li>
-                        </ul>   
-                    </li> --}}
-
-                    {{-- Horario --}}
-                    {{-- <li>
-                        <button id="btnHorario" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                            <i class="fa-sharp fa-solid fa-calendar-days"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Gestionar Horarios</span>
-                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </button>
-                        <ul id="horario" class="hidden py-2 space-y-2">
-                            @role('administrador')
-                            <li>
-                                <a href="{{ route('horario.create') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Registrar Horario</a>
-                            </li>
-                            @endrole
-                            <li>
-                                <a href="{{ route('horario.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Visualizar Horarios</a>
-                            </li>
-                        </ul>   
-                    </li> --}}
-
-                    {{-- Cargo --}}
-                    {{-- <li>
-                        <button id="btnCargo" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                            <i class="fa-sharp fa-solid fa-chart-user"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Administrar Cargos</span>
-                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </button>
-                        <ul id="cargo" class="hidden py-2 space-y-2">
-                            @role('administrador')
-                            <li>
-                                <a href="{{ route('cargo.create') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Registrar Cargo</a>
-                            </li>
-                            @endrole
-                            <li>
-                                <a href="{{ route('cargo.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Visualizar Cargos</a>
-                            </li>
-                        </ul>   
-                    </li> --}}
-
-                    {{-- Contrato --}}
-                    {{-- <li>
-                        <button id="btnContrato" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                            <i class="fa-sharp fa-solid fa-chart-user"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Administrar Contrato</span>
-                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </button>
-                        <ul id="contrato" class="hidden py-2 space-y-2">
-    
-                            <li>
-                                <a href="{{ route('contrato.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Visualizar Contratos</a>
-                            </li>
-                        </ul>   
-                    </li> --}}
-
-                    {{-- Reportes --}}
-                    {{-- <li>
-                        <button id="btnReportes" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-                            <i class="fa-sharp fa-solid fa-chart-user"></i>
-                            <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>Reportes</span>
-                            <svg sidebar-toggle-item class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                        </button>
-                        <ul id="reportes" class="hidden py-2 space-y-2">
-                            <li>
-                                <a href="{{ route('cargo.create') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Empleados en Vacaciones</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('cargo.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Empleados en día Libre</a>
-                            </li>
-                        </ul>   
-                    </li> --}}
-                    
+                    </li>
                 </ul>
             </div>
         </aside>
@@ -205,7 +107,6 @@
                 <div class="container p-4">
                     @yield('contenido')  
                 </div>
-            
             </main>
 
             <footer class="text-center font-bold p-1 bg-gray-700 text-white">
@@ -219,17 +120,11 @@
 </html>
 
 <script>
-    const boton = document.querySelector("#boton");
-    const submenu = document.querySelector("#dropdown-example");
-    boton.addEventListener("click", function () {
-        submenu.classList.toggle("hidden");
-    });
-
-    // Servicio
-    const btnServicio = document.querySelector("#btnServicio");
-    const servicio = document.querySelector("#servicio");
-    btnServicio.addEventListener("click", function () {
-        servicio.classList.toggle("hidden");
+    // User
+    const btnUser = document.querySelector("#btnUser");
+    const user = document.querySelector("#user");
+    btnUser.addEventListener("click", function () {
+        user.classList.toggle("hidden");
     });
 
     // Cliente
@@ -239,46 +134,6 @@
         cliente.classList.toggle("hidden");
     });
 
-    // Empleado
-    const btnEmpleado = document.querySelector("#btnEmpleado");
-    const empleado = document.querySelector("#empleado");
-    btnEmpleado.addEventListener("click", function () {
-        empleado.classList.toggle("hidden");
-    });
-
-    // Roles
-    // const btnRol = document.querySelector("#btnRol");
-    // const rol = document.querySelector("#rol");
-    // btnRol.addEventListener("click", function () {
-    //     rol.classList.toggle("hidden");
-    // });
-
-    // Horarios
-    const btnHorario = document.querySelector("#btnHorario");
-    const horario = document.querySelector("#horario");
-    btnHorario.addEventListener("click", function () {
-        horario.classList.toggle("hidden");
-    });
-
-    // Cargos
-    const btnCargo = document.querySelector("#btnCargo");
-    const cargo = document.querySelector("#cargo");
-    btnCargo.addEventListener("click", function () {
-        cargo.classList.toggle("hidden");
-    });    
-
-    // Contrato
-    const btnContrato = document.querySelector("#btnContrato");
-    const contrato = document.querySelector("#contrato");
-    btnContrato.addEventListener("click", function () {
-        contrato.classList.toggle("hidden");
-    }); 
-
-    // Reporte
-    const btnReporte = document.querySelector("#btnReportes");
-    const reporte = document.querySelector("#reportes");
-    btnReporte.addEventListener("click", function () {
-        reporte.classList.toggle("hidden");
-    }); 
+    
 
 </script>

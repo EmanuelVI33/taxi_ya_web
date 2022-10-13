@@ -1,6 +1,11 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\conductorController;
+=======
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\UserController;
+>>>>>>> main
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +27,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+<<<<<<< HEAD
 Route::resource('conductor',ConductorController::class);
+=======
+Route::resource('cliente', ClienteController::class);
+Route::resource('usuario', UserController::class);
+
+>>>>>>> main
 
 require __DIR__.'/auth.php';
