@@ -22,7 +22,7 @@
         <aside class="fixed h-screen w-16 lg:w-64 bg-gray-500" aria-label="Sidebar">
             <div class="h-screen overflow-y-auto py-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
                 <ul class="space-y-2">
-<<<<<<< HEAD
+
                     {{-- Solicitar Servicios --}}
                     <li>
                         <button id="boton" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
@@ -62,7 +62,7 @@
                             </li>
                             @endrole
                         </ul>
-=======
+
                     {{-- Mi Perfil --}}
                     <li>
                         <button id="btnUser" type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
@@ -78,7 +78,7 @@
                                 <a href="{{ route('usuario.edit', Auth()->user()) }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Editar mi Perfil</a>
                             </li>
                         </ul>
->>>>>>> main
+
                     </li>
 
                     {{-- Gestionar Clientes --}}
@@ -120,6 +120,13 @@
 </html>
 
 <script>
+    // Dario
+    const btnBoton = document.querySelector("#boton");
+    const boton = document.querySelector("#dropdown-example");
+    btnBoton.addEventListener("click", function () {
+        boton.classList.toggle("hidden");
+    });
+
     // User
     const btnUser = document.querySelector("#btnUser");
     const user = document.querySelector("#user");
