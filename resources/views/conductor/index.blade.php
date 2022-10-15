@@ -75,7 +75,6 @@
                                 </div>
                             </div>
 
-                            @role('administrador')
                             <form action="{{ route('conductor.edit', $conductor->id) }}" method="GET">
                                 @csrf
                                 <x-button-edit>
@@ -90,7 +89,6 @@
                                     Eliminar
                                 </x-button-delete>
                             </form>
-                            @endrole
                         </div>
                     </td>
                 </tr>

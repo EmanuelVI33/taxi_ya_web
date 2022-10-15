@@ -7,6 +7,7 @@ use App\Models\Cliente;
 use App\Models\Conductor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
 class ConductorController extends Controller
@@ -43,7 +44,7 @@ class ConductorController extends Controller
         $this->validate($request,[
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'telefono' => 'required|numeric',
+            'telefono' => 'required|numeric|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required','confirmed',Password::defaults()],
         ]);
@@ -110,7 +111,8 @@ class ConductorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $conductor = Conductor::find($id);
+        return view('conductor.edit',compact('conductor'));
     }
 
     /**
@@ -122,7 +124,37 @@ class ConductorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $conductor = Conductor::find($id);
+        $user = $conductor->cliente->user;
+        
+        $this->validate($request,[
+            'nombre' => 'required|string|max:255',
+            'apellido' => 'required|string|max:255',
+            'telefono' => 'required|numeric',
+            // 'email' => 'required|string|email|max:255',
+        ]);
+
+        // if($request->email != $conductor->user->email){
+        //     $this->validate($request,[
+        //         'email' => 'unique:users',
+        //     ]);
+        // }
+
+        if($request->telefono != $conductor->cliente->user->telefono){
+            $this->validate($request,[
+                'telefono' => 'unique:users',
+            ]);
+        }
+
+        $user->nombre = $request->nombre;
+        $user->apellido = $request->apellido;
+        $user->telefono = $request->telefono;
+        $conductor->ci = $request->ci;
+
+        $user->save();
+        $conductor->save();
+        
+        return redirect()->route('conductor.edit',$conductor);
     }
 
     /**
