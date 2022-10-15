@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('contenido')
-<div class="grid grid-cols-4">
+{{-- <div class="grid grid-cols-4">
     <div class="flex justify-center items-center">
         <div class="col-span-1 bg-indigo-700 hover:bg-indigo-900 hover:font-bold text-white px-4 p-2 rounded-md ">
             <i class="fa-solid fa-plus pr-2"></i> <a href="{{ route('conductor.create') }}">Registrar conductor</a>
         </div>
     </div>
+</div> --}}
 
-    <h3 class="col-span-3 font-bold text-2xl p-3">
-        Conductores Registrados
-    </h3>
-</div>
+<h3 class="col-span-3 font-bold text-2xl p-3">
+    Conductores Registrados
+</h3>
 
 <div class="grid p-2 text-center">
     <div class="grid-cols-12">
@@ -96,10 +96,10 @@
                 </tr>
                 @endforeach
 
-                <div>
+                {{-- <div>
                 {{$conductors->links('pagination::tailwind')}}
                 </div>
-            
+             --}}
         </tbody>
     </table>
 </div>

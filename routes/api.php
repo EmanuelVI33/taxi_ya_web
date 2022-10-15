@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-
 // Route::get('/user', [UserApi::class, 'index'])->name('user.index');
 
 Route::post('/register', [AuthApi::class, 'register']);

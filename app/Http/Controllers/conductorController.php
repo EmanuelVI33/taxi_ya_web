@@ -18,8 +18,8 @@ class ConductorController extends Controller
      */
     public function index()
     {
-        $data['conductors'] = Conductor::paginate(8);
-        return view('conductor.index',$data);
+        $conductors = Conductor::all();
+        return view('conductor.index', ['conductors' => $conductors]);
     }
 
     /**
@@ -86,6 +86,8 @@ class ConductorController extends Controller
             'fotoLicencia' => $fileData_fL,
             'fotoTIC' => $fileData_fTIC,
         ]);
+
+        return redirect()->route('conductor.index');
 
     }
 
