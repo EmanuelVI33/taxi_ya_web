@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('fotoLicencia');
             $table->string('fotoTIC');
             $table->timestamps();
+            
         });
     }
 

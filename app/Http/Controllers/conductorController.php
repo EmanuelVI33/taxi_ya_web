@@ -72,7 +72,7 @@ class ConductorController extends Controller
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
             'password' => Hash::make($request->password)
-        ]);
+        ])->assignRole('conductor');
 
         $cliente = Cliente::create([
             'user_id' => $user->id,
