@@ -12,6 +12,10 @@ use Illuminate\Validation\Rules\Password;
 
 class ConductorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -145,15 +149,12 @@ class ConductorController extends Controller
                 'telefono' => 'unique:users',
             ]);
         }
-
         $user->nombre = $request->nombre;
         $user->apellido = $request->apellido;
         $user->telefono = $request->telefono;
         $conductor->ci = $request->ci;
-
         $user->save();
         $conductor->save();
-        
         return redirect()->route('conductor.edit',$conductor);
     }
 
@@ -165,6 +166,7 @@ class ConductorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Conductor::destroy($id);
+        return redirect()->route('conductor.index');
     }
 }
