@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
             'telefono' => '65085392',
             'email' => 'dario@correo.com',
             'password' => Hash::make('S0123456789'),
+            'email_verified_at' => '2022-10-16 03:26:32'
         ])->assignRole('admin');
 
         Administrador::create([
@@ -35,6 +36,7 @@ class UserSeeder extends Seeder
             'telefono' => '72669261',
             'email' => 'guido@correo.com',
             'password' => Hash::make('S0123456789'),
+            'email_verified_at' => '2022-10-16 03:26:32'
         ])->assignRole('admin');
 
         Administrador::create([
@@ -47,6 +49,7 @@ class UserSeeder extends Seeder
             'telefono' => '76034449',
             'email' => 'julio@correo.com',
             'password' => Hash::make('S0123456789'),
+            'email_verified_at' => '2022-10-16 03:26:32'
         ])->assignRole('admin');
 
         Administrador::create([
@@ -59,6 +62,7 @@ class UserSeeder extends Seeder
             'telefono' => '73606371',
             'email' => 'christian@correo.com',
             'password' => Hash::make('C0123456789'),
+            'email_verified_at' => '2022-10-16 03:26:32'
         ])->assignRole('admin');
 
         Administrador::create([
@@ -71,10 +75,59 @@ class UserSeeder extends Seeder
             'telefono' => '62064184',
             'email' => 'emanuel@correo.com',
             'password' => Hash::make('V0123456789'),
+            'email_verified_at' => '2022-10-16 03:26:32'
         ])->assignRole('admin');
 
         Administrador::create([
             'user_id' => $emanuel->id,
         ]);
+
+
+        //Poblar tabla Usuario relacionadas con la tabla Cliente
+        User::create([
+            'nombre' => 'Cliente 1',
+            'apellido' => 'Apellido Cliente 1',
+            'telefono' => '132465798',
+            'email' => 'cliente1@correo.com',
+            'password' => Hash::make('C0123456789'),
+            'email_verified_at' => null
+        ])->assignRole('cliente');
+
+        User::create([
+            'nombre' => 'Cliente 2',
+            'apellido' => 'Apellido Cliente 2',
+            'telefono' => '132465798',
+            'email' => 'cliente2@correo.com',
+            'password' => Hash::make('C0123456789'),
+            'email_verified_at' => null
+        ])->assignRole('cliente');
+
+        User::create([
+            'nombre' => 'Cliente 3',
+            'apellido' => 'Apellido Cliente 3',
+            'telefono' => '132465798',
+            'email' => 'cliente3@correo.com',
+            'password' => Hash::make('C0123456789'),
+            'email_verified_at' => null
+        ])->assignRole('cliente');
+
+        User::create([
+            'nombre' => 'Cliente 4',
+            'apellido' => 'Apellido Cliente 4',
+            'telefono' => '132465798',
+            'email' => 'cliente4@correo.com',
+            'password' => Hash::make('C0123456789'),
+            'email_verified_at' => null
+        ])->assignRole('cliente');
+
+        User::create([
+            'nombre' => 'Cliente 5',
+            'apellido' => 'Apellido Cliente 5',
+            'telefono' => '132465798',
+            'email' => 'cliente5@correo.com',
+            'password' => Hash::make('C0123456789'),
+            'email_verified_at' => null
+        ])->assignRole('cliente');
+
     }
 }
