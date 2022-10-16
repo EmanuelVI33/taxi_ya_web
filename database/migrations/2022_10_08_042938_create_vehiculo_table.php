@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('vehiculo', function (Blueprint $table) {
+        Schema::create('vehiculos', function (Blueprint $table) {
             $table->id();
 
             $table->string('placa');
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('modelo');
             $table->date('año');
             $table->timestamps();
-            
+
         });
     }
 
