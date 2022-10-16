@@ -32,6 +32,7 @@ Route::resource('solicitud', SolicitudController::class);
 Route::resource('cliente', ClienteController::class);
 Route::resource('usuario', UserController::class);
 Route::resource('vehiculo', VehiculoController::class);
+Route::get('pdf', [VehiculoController::class, 'pdf'])->name('vehiculo.pdf');
 
 
 
