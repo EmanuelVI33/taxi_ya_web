@@ -27,12 +27,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
 Route::resource('conductor',ConductorController::class);
-
 Route::resource('cliente', ClienteController::class);
 Route::resource('usuario', UserController::class);
-
-
+Route::resource('vehiculo', VehiculoController::class);
 
 require __DIR__.'/auth.php';
