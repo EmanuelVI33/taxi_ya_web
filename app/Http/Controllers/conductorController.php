@@ -71,7 +71,7 @@ class ConductorController extends Controller
             'nombre' => $request->nombre,
             'email' => $request->email,
             'apellido' => $request->apellido,
-            'telefono' => $request->telefono,
+            'telefono' => '+591'.$request->telefono,
             'password' => Hash::make($request->password)
         ])->assignRole('conductor');
 
@@ -126,7 +126,7 @@ class ConductorController extends Controller
     {
         $conductor = Conductor::find($id);
         $user = $conductor->cliente->user;
-        
+
         $this->validate($request,[
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
@@ -153,7 +153,7 @@ class ConductorController extends Controller
 
         $user->save();
         $conductor->save();
-        
+
         return redirect()->route('conductor.edit',$conductor);
     }
 
