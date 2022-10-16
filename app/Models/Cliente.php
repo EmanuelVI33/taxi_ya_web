@@ -12,6 +12,7 @@ class Cliente extends Model
 
     protected $fillable = [
         'user_id',
+        'fecha_nacimiento'
     ];
 
     public function user(){

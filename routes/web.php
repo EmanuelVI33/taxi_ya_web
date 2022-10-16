@@ -1,12 +1,10 @@
 <?php
 
-
-use App\Http\Controllers\conductorController;
-
-use App\Http\Controllers\ClienteController;
-use App\Http\Controllers\UserController;
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\conductorController;
+use App\Http\Controllers\SolicitudController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,9 +26,16 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('conductor',ConductorController::class);
+
+Route::resource('solicitud', SolicitudController::class);
+
 Route::resource('cliente', ClienteController::class);
 Route::resource('usuario', UserController::class);
 Route::resource('vehiculo', VehiculoController::class);
 Route::get('pdf', [VehiculoController::class, 'pdf'])->name('vehiculo.pdf');
 
+
+
 require __DIR__.'/auth.php';
+require __DIR__.'/auth.php';
+

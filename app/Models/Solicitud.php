@@ -2,31 +2,23 @@
 
 namespace App\Models;
 
-use App\Models\Cliente;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Conductor extends Model
+class Solicitud extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'cliente_id',
         'ci',
-        'ocupado',
+        // 'estado',
         'fotoAntecedente',
         'fotoLicencia',
         'fotoTIC',
-        'CI_Anverso',
-        'CI_Reverso',
-        'foto'
     ];
 
     public function cliente(){
         return $this->belongsTo(Cliente::class,'cliente_id');
-    }
-    //metodo para dar la primari key
-    public function empleados(){
-    return $this->hasMany(Vehiculo::class);
     }
 }

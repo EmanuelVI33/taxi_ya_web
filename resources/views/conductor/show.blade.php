@@ -22,33 +22,33 @@
                 <div class="flex">
                     <div>
                         <x-input-label class="text-gray-800" for="nombre" :value="__('Nombre')" />
-                        <x-text-input id="nombre" class="block mt-1 w-full" type="text" name="nombre" value="{{ $conductor->cliente->user->nombre }}" />
+                        <x-text-input readonly id="nombre" class="block mt-1 w-full" type="text" name="nombre" value="{{ $conductor->cliente->user->nombre }}" />
                     </div>
                     <div>
                         <x-input-label class="text-gray-800" for="apellido" :value="__('Apellido')" />
-                        <x-text-input id="apellido" class="block mt-1 w-full" type="text" name="apellido" value="{{ $conductor->cliente->user->apellido }}"  />
+                        <x-text-input readonly id="apellido" class="block mt-1 w-full" type="text" name="apellido" value="{{ $conductor->cliente->user->apellido }}"  />
                     </div>
                 </div>
 
                 <div class="flex">
                     <div>
                         <x-input-label class="text-gray-800" for="ci" :value="__('Carnet de Identidad')" />
-                        <x-text-input id="ci" class="block mt-1 w-full" type="text" name="ci" value="{{ $conductor->ci }}" />
+                        <x-text-input readonly id="ci" class="block mt-1 w-full" type="text" name="ci" value="{{ $conductor->ci }}" />
                     </div>
                     <div>
                         <x-input-label class="text-gray-800" for="telefono" :value="__('Teléfono')" />
-                        <x-text-input id="telefono" class="block mt-1 w-full" type="text" name="telefono" value="{{ $conductor->cliente->user->telefono }}" />
+                        <x-text-input readonly id="telefono" class="block mt-1 w-full" type="text" name="telefono" value="{{ $conductor->cliente->user->telefono }}" />
                     </div>
                 </div>
 
                 <div class="flex">
                     <div>
                         <x-input-label class="text-gray-800" for="email" :value="__('Email')" />
-                        <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ $conductor->cliente->user->email}}" />
+                        <x-text-input readonly id="email" class="block mt-1 w-full" type="email" name="email" value="{{ $conductor->cliente->user->email}}" />
                     </div>
                     <div>
                         <x-input-label class="text-gray-800" for="fecha_nacimiento" :value="__('Fecha de nacimiento')" />
-                        <x-text-input id="fecha_nacimiento" class="block mt-1 w-full" type="date" name="fecha_nacimiento" value="{{ $conductor->cliente->fecha_nacimiento}}" />
+                        <x-text-input readonly id="fecha_nacimiento" class="block mt-1 w-full" type="date" name="fecha_nacimiento" value="{{ $conductor->cliente->fecha_nacimiento}}" />
                     </div>
                 </div>
             </div>
@@ -68,23 +68,19 @@
         {{-- <div class="p-4 flex gap-1 bg-slate-100">
             <div>
                 <x-input-label class="text-gray-800" for="image" :value="__('Cambiar foto de licencia')" />
-                <x-text-input id="image" class="block mt-1 w-full" type="file" name="fotoLicencia" value="" />
+                <x-text-input readonly id="image" class="block mt-1 w-full" type="file" name="fotoLicencia" value="" />
             </div>
 
             <div>
                 <x-input-label class="text-gray-800" for="image" :value="__('Cambiar foto de TIC')" />
-                <x-text-input id="image" class="block mt-1 w-full" type="file" name="fotoTIC" value="" />
+                <x-text-input readonly id="image" class="block mt-1 w-full" type="file" name="fotoTIC" value="" />
             </div>
             
             <div>
                 <x-input-label class="text-gray-800" for="image" :value="__('Cambiar foto de antecedentes')" />
-                <x-text-input id="image" class="block mt-1 w-full" type="file" name="fotoAntecedentes" value="" />
+                <x-text-input readonly id="image" class="block mt-1 w-full" type="file" name="fotoAntecedentes" value="" />
             </div>
         </div> --}}
-
-        <x-primary-button class="w-full justify-center mt-4">
-            {{ __('Actualizar Datos') }}
-        </x-primary-button>
 
     </form>   
 
