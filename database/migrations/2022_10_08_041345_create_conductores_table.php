@@ -19,9 +19,10 @@ return new class extends Migration
             // $table->unsignedBigInteger('user_id');
             $table->foreignId('cliente_id', 'id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             $table->string('ci');
+            $table->string('foto');
             $table->boolean('ocupado');
-
-
+            $table->string('CI_Anverso');
+            $table->string('CI_Reverso');
             $table->string('fotoAntecedente');
             $table->string('fotoLicencia');
             $table->string('fotoTIC');
