@@ -23,7 +23,7 @@ class ConductorController extends Controller
      */
     public function index()
     {
-        $conductors = Conductor::all();
+        $conductors = Conductor::paginate(9);
         return view('conductor.index', ['conductors' => $conductors]);
     }
 
@@ -45,6 +45,7 @@ class ConductorController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->fechanac);
         $this->validate($request,[
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
@@ -71,6 +72,24 @@ class ConductorController extends Controller
             $fileData_fTIC = $request->file('fotoTIC')->store('uploads','public');
         }
 
+        $fileData_CIAnverso = '';
+
+        if($request->hasFile('CI_Anverso') and ($request->CI_Anverso->extension() == 'png' or $request->CI_Anverso->extension() == 'jpg' or $request->CI_Anverso->extension() == 'bmp')){
+            $fileData_CIAnverso = $request->file('CI_Anverso')->store('uploads','public');
+        }
+
+        $fileData_CIReverso = '';
+
+        if($request->hasFile('CI_Reverso') and ($request->CI_Reverso->extension() == 'png' or $request->CI_Reverso->extension() == 'jpg' or $request->CI_Reverso->extension() == 'bmp')){
+            $fileData_CIReverso = $request->file('CI_Reverso')->store('uploads','public');
+        }
+
+        $fileData_foto = '';
+
+        if($request->hasFile('foto') and ($request->foto->extension() == 'png' or $request->foto->extension() == 'jpg' or $request->foto->extension() == 'bmp')){
+            $fileData_foto = $request->file('foto')->store('uploads','public');
+        }
+
         $user = User::create([
             'nombre' => $request->nombre,
             'email' => $request->email,
@@ -81,6 +100,7 @@ class ConductorController extends Controller
 
         $cliente = Cliente::create([
             'user_id' => $user->id,
+            'fecha_nacimiento' => $request->fechanac,
         ]);
 
         Conductor::create([
@@ -90,6 +110,9 @@ class ConductorController extends Controller
             'fotoAntecedente' => $fileData_fA,
             'fotoLicencia' => $fileData_fL,
             'fotoTIC' => $fileData_fTIC,
+            'CI_Anverso' => $fileData_CIAnverso,
+            'CI_Reverso' => $fileData_CIReverso,
+            'foto' => $fileData_foto,
         ]);
 
         return redirect()->route('conductor.index');
@@ -104,7 +127,8 @@ class ConductorController extends Controller
      */
     public function show($id)
     {
-        //
+        $conductor = Conductor::find($id);
+        return view('conductor.show',compact('conductor'));
     }
 
     /**
@@ -130,6 +154,7 @@ class ConductorController extends Controller
     {
         $conductor = Conductor::find($id);
         $user = $conductor->cliente->user;
+        $cliente = $conductor->cliente;
         
         $this->validate($request,[
             'nombre' => 'required|string|max:255',
@@ -149,11 +174,14 @@ class ConductorController extends Controller
                 'telefono' => 'unique:users',
             ]);
         }
+
         $user->nombre = $request->nombre;
         $user->apellido = $request->apellido;
         $user->telefono = $request->telefono;
+        $cliente->fecha_nacimiento = $request->fecha_nacimiento;
         $conductor->ci = $request->ci;
         $user->save();
+        $cliente->save();
         $conductor->save();
         return redirect()->route('conductor.edit',$conductor);
     }

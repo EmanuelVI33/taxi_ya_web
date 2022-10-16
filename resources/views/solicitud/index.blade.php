@@ -1,21 +1,13 @@
 @extends('layouts.app')
 
 @section('contenido')
-{{-- <div class="grid grid-cols-4">
-    <div class="flex justify-center items-center">
-        <div class="col-span-1 bg-indigo-700 hover:bg-indigo-900 hover:font-bold text-white px-4 p-2 rounded-md ">
-            <i class="fa-solid fa-plus pr-2"></i> <a href="{{ route('conductor.create') }}">Registrar conductor</a>
-        </div>
-    </div>
-</div> --}}
-
 <h3 class="col-span-3 font-bold text-2xl p-3">
-    Conductores Registrados
+    Solicitudes
 </h3>
 
 <div class="grid p-2 text-center">
     <div class="grid-cols-12">
-        <form action="{{ route('conductor.index') }}" method="GET">
+        <form action="{{ route('solicitud.index') }}" method="GET">
             <input type="text" class="w-1/2 mr-5 rounded-lg border-stone-900" name="texto" value="" placeholder="Buscar">
             <div class="inline p-2 bg-cyan-500  hover:bg-cyan-400 font-bold rounded-md text-lg">
                 <input type="submit" class="pr-2" value="Buscar">
@@ -50,42 +42,42 @@
             </tr>
         </thead>
         <tbody class="text-gray-300">
-                @foreach ($conductors as $conductor)
+                @foreach ($solicituds as $solicitud)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 text-center">
                     <td class="py-1 px-6">
-                        {{ $conductor->id }}
+                        {{ $solicitud->id }}
                     </td>
                     <td class="py-1 px-6">
-                        {{ $conductor->cliente->user->nombre }}
+                        {{ $solicitud->cliente->user->nombre }}
                     </td>
                     <td class="py-1 px-6">
-                        {{ $conductor->cliente->user->apellido }}
+                        {{ $solicitud->cliente->user->apellido }}
                     </td>
                     <td class="py-1 px-6">
-                        {{ $conductor->ci }}
+                        {{ $solicitud->ci }}
                     </td>
                     <td class="py-1 px-6">
-                        {{ $conductor->cliente->user->telefono }}
+                        {{ $solicitud->cliente->user->telefono }}
                     </td>
                     <td class="py-3 px-1">
                         <div class="flex justify-center gap-2">
-                            <div class="flex justify-center items-center">
+                            {{-- <div class="flex justify-center items-center">
                                 <div class="col-span-1 bg-indigo-700 hover:bg-indigo-800 hover:font-bold text-white p-1 rounded-md ">
-                                    <i class="fa-solid fa-plus pr-2"></i> <a href="{{ route('conductor.show', $conductor->id) }}">Mostrar</a>
+                                    <i class="fa-solid fa-plus pr-2"></i> <a href="{{ route('solicitud.show', $solicitud->id) }}">Mostrar</a>
                                 </div>
-                            </div>
+                            </div> --}}
 
-                            <form action="{{ route('conductor.edit', $conductor->id) }}" method="GET">
+                            <form action="{{ route('solicitud.edit', $solicitud->id) }}" method="GET">
                                 @csrf
                                 <x-button-edit>
                                     Editar    
                                 </x-button-edit>
                             </form>
 
-                            <form action="{{ route('conductor.destroy', $conductor->id) }}" method="POST">
+                            <form action="{{ route('solicitud.destroy', $solicitud->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <x-button-delete onclick="return confirm('¿Seguro que desea eliminar el conductor con nombre: {{$conductor->cliente->user->nombre}} {{$conductor->cliente->user->apellido}}?' )">
+                                <x-button-delete>
                                     Eliminar
                                 </x-button-delete>
                             </form>
@@ -95,9 +87,9 @@
                 @endforeach
 
                 <div>
-                {{$conductors->links('pagination::tailwind')}}
+                {{$solicituds->links('pagination::tailwind')}}
                 </div>
-        
+                
         </tbody>
     </table>
 </div>
