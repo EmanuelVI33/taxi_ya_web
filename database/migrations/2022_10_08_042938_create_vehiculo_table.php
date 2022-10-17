@@ -22,7 +22,7 @@ return new class extends Migration
             $table->date('año');
             $table->string('estado');
             $table->unsignedBigInteger('id_conductor')->nullable();
-            $table->timestamps();
+            // $table->timestamps();
 
             $table->foreign('id_conductor')
             ->references('id')
