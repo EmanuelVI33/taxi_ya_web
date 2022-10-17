@@ -26,6 +26,7 @@
                                 <th class="px-4 py-3">Marca</th>
                                 <th class="px-4 py-3">Modelo</th>
                                 <th class="px-4 py-3">Año</th>
+                                <th class="px-4 py-3">Estado</th>
                                 <th class="px-4 py-3">Propietario</th>
                                 <th class="px-4 py-3">Acciones</th>
                             </tr>
@@ -39,9 +40,18 @@
                                     </td>
                                     <td class="px-4 py-3 text-sm uppercase">{{ $cars->placa }}</td>
                                     <td class="px-4 py-3 text-xs uppercase">{{ $cars->marca }}</td>
-                                    <td class="px-4 py-3 text-xs uppercase">{{ $cars->modelo }}</td>
+                                    <td class="px-4 py-3 text-xs upercase ">{{ $cars->modelo }}</td>
                                     <td class="px-4 py-3 text-xs ">{{ $cars->anio }}</td>
-                                    <td class="px-4 py-3 text-xs uppercase">{{ $cars->propietario }}</td>
+                                    @if ($cars->estado == 'HABILITADO')
+                                        <td class="px-2 py-2 text-sm"><span
+                                                class=" text-lime-500 bg-green-100 rounded-full p-1.5">{{ $cars->estado }}</span>
+                                        </td>
+                                    @else
+                                        <td class="px-2 py-2 text-sm"><span
+                                                class=" text-red-700 bg-red-100 rounded-full p-1.5">{{ $cars->estado }}</span>
+                                        </td>
+                                    @endif
+                                    <td class="px-4 py-3 text-xs capitalise">{{ $cars->propietario }}</td>
                                     <td class="px-4 py-3 text-xs">
 
                                         <button type="button"
@@ -61,13 +71,40 @@
                                                     onclick="return confirm('Desea Eliminar?')">
                                             </form>
                                         </button>
+
+                                        <button type="button">
+                                            <form action="{{ Route('vehiculo.estado', $cars->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <input type="numeric" name="id"          class="hidden" value="{{ $cars->id }}">
+                                                <input type="text" name="placa"          class="hidden" value="{{ $cars->placa }}">
+                                                <input type="text" name="marca"          class="hidden" value="{{ $cars->marca }}">
+                                                <input type="text" name="modelo"         class="hidden" value="{{ $cars->modelo }}">
+                                                <input type="date" name="anio"           class="hidden" value="{{ $cars->anio }}">
+                                                <input type="numeric" name="propietario" class="hidden" value="{{ $cars->id_conductor }}">
+
+                                                @if ($cars->estado == 'HABILITADO')
+                                                    <input type="text" name="estado" value="MANTENIMIENTO"
+                                                        class="hidden">
+                                                    <input type="submit" value="DESHABILITAR"
+                                                    class="px-2 py-1 font-semibold leading-tight text-black bg-gray-300 rounded-full dark:text-red-100 dark:bg-red-700"
+                                                        onclick="return confirm('Desea deshabilitar el Vehiculo?')">
+                                                @else
+                                                    <input type="text" name="estado" value="HABILITADO" class="hidden">
+                                                    <input type="submit" value="HABILITAR"
+                                                    class="px-2 py-1 font-semibold leading-tight text-black bg-lime-300 rounded-full dark:text-red-100 dark:bg-red-700"
+                                                        onclick="return confirm('Desea habilitar el Vehiculo?')">
+                                                @endif
+                                            </form>
+                                        </button>
                                     </td>
                                 </tr>
                             @empty
-                                    <span
-                                        class="px-2 md-2 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
-                                        No hay Vehiculos cargados en la BD.
-                                    </span>
+                                <span
+                                    class="px-2 md-2 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
+                                    No hay Vehiculos cargados en la BD.
+                                </span>
                             @endforelse
                         </tbody>
                     </table>

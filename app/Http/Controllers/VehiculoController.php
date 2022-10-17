@@ -147,4 +147,19 @@ class VehiculoController extends Controller
 
         return $pdf->stream('Lista de Vehiculos' . '.pdf', ['Attachment' => 'true']);
     }
+
+    public function estado(Request $r, Vehiculo $vehiculo)
+    {
+        // dd($r);
+        $vehiculo = Vehiculo::find($r->id);
+        $vehiculo->placa = $r->placa;
+        $vehiculo->marca = $r->marca;
+        $vehiculo->modelo = $r->modelo;
+        $vehiculo->anio = $r->anio;
+        $vehiculo->estado =  $r->estado;
+        $vehiculo->id_conductor =  $r->propietario;
+        $vehiculo->save();
+
+        return redirect()->route('vehiculo.index');
+    }
 }
