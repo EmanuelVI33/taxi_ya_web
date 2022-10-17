@@ -41,7 +41,7 @@
                 <td>{{$c->placa}}</td>
                 <td>{{$c->marca}}</td>
                 <td>{{$c->modelo}}</td>
-                <td>{{$c->año}}</td>
+                <td>{{$c->anio}}</td>
                 <td>{{$c->estado}}</td>
                 <td>{{$c->propietario}}</td>
             @empty

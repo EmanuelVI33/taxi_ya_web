@@ -62,7 +62,7 @@ class VehiculoController extends Controller
         $vehiculo->placa = $r->placa;
         $vehiculo->marca = $r->marca;
         $vehiculo->modelo = $r->modelo;
-        $vehiculo->año = $r->anio;
+        $vehiculo->anio = $r->anio;
         $vehiculo->estado =  $r->estado;
         $vehiculo->id_conductor =  $r->propietario;
         $vehiculo->save();
@@ -112,7 +112,7 @@ class VehiculoController extends Controller
         $vehiculo->placa = $r->placa;
         $vehiculo->marca = $r->marca;
         $vehiculo->modelo = $r->modelo;
-        $vehiculo->año = $r->anio;
+        $vehiculo->anio = $r->anio;
         $vehiculo->estado =  $r->estado;
         $vehiculo->id_conductor =  $r->id_conductor;
         // $vehiculo->updated_at = date('Y-m-d h:m:s');
@@ -136,9 +136,15 @@ class VehiculoController extends Controller
 
     public function pdf(Vehiculo $vehiculo)
     {
-        $cars = Vehiculo::get();
+
+        $cars = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
+        ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
+        ->join('users as u', 'u.id', '=', 'c.user_id')
+        ->select('vehiculos.*', 'u.nombre as propietario')->get();
+
         $pdf = Pdf::loadView('VistaVehiculos.imprimir', ['cars' => $cars])
             ->setPaper('letter', 'portrait');
+
         return $pdf->stream('Lista de Vehiculos' . '.pdf', ['Attachment' => 'true']);
     }
 }
