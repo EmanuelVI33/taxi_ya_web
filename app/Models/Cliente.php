@@ -18,4 +18,9 @@ class Cliente extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    //metodo para dar la primari key
+    public function Conductor(){
+        return $this->hasMany(Conductor::class);
+    }
 }

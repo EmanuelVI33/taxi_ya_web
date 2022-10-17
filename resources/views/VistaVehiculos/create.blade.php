@@ -32,16 +32,15 @@
     </div>
 
     <div class="flex flex-col mt-2">
-        <label for="estado" class="text-lg font-semibold">Estado</label>
-        <select name="propietario" id="propietario">
+        <label for="estado" class="text-lg font-semibold">Propietario</label>
+        <select name="propietario" id="propietario"
+        class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none">
             @forelse ($propietario as $p)
                 <option value="{{$p->id}}">{{$p->propietario}}</option>
             @empty
-
+                <input type="text" value="No se a registrado ningun propietario">
             @endforelse
         </select>
-        <input type="text" name="estado" id="estado" value="HABILITADO"
-            class="w-100 mt-2 py-3 px-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-400 dark:border-gray-700 text-gray-800 dark:text-gray-50 font-semibold focus:border-blue-500 focus:outline-none" />
     </div>
 
     <button type="submit"
