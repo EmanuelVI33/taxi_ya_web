@@ -30,16 +30,16 @@
         <thead class="font-bold text-gray-800 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="py-3 px-6">
-                    Nro 
+                    Nro
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Nombre 
+                    Nombre
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Apellido
                 </th>
                 <th scope="col" class="py-3 px-6">
-                    Carnet 
+                    Carnet
                 </th>
                 <th scope="col" class="py-3 px-6">
                     Telefono
@@ -78,7 +78,7 @@
                             <form action="{{ route('conductor.edit', $conductor->id) }}" method="GET">
                                 @csrf
                                 <x-button-edit>
-                                    Editar    
+                                    Editar
                                 </x-button-edit>
                             </form>
 
@@ -95,9 +95,9 @@
                 @endforeach
 
                 <div>
-                {{$conductors->links('pagination::tailwind')}}
+                {{-- {{$conductors->links('pagination::tailwind')}} --}}
                 </div>
-        
+
         </tbody>
     </table>
 </div>

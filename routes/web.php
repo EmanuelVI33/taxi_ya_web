@@ -34,7 +34,7 @@ Route::resource('cliente', ClienteController::class);
 Route::resource('usuario', UserController::class);
 Route::resource('vehiculo', VehiculoController::class);
 Route::put('estado/{estado}/update', [VehiculoController::class, 'estado'])->name('vehiculo.estado');
-Route::post('pdf', [VehiculoController::class, 'pdf'])->name('vehiculo.pdf');
+Route::get('pdf', [VehiculoController::class, 'pdf'])->name('vehiculo.pdf');
 
 
 
