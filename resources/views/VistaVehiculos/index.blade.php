@@ -64,9 +64,10 @@
                                     </td>
                                 </tr>
                             @empty
-                                <span class="px-2 md-2 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
-                                    No hay Vehiculos cargados en la BD.
-                                </span>
+                                    <span
+                                        class="px-2 md-2 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-700">
+                                        No hay Vehiculos cargados en la BD.
+                                    </span>
                             @endforelse
                         </tbody>
                     </table>

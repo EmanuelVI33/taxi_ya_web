@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id','id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->date('fecha_nacimiento')->nullable(); //Para que no le afecte a Emanuel
             $table->string('foto')->nullable();
             $table->timestamps();

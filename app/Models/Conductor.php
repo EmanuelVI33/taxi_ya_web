@@ -26,7 +26,7 @@ class Conductor extends Model
         return $this->belongsTo(Cliente::class,'cliente_id');
     }
     //metodo para dar la primari key
-    public function empleados(){
-    return $this->hasMany(Vehiculo::class);
+    public function vehiculo(){
+        return $this->hasMany(Vehiculo::class);
     }
 }
