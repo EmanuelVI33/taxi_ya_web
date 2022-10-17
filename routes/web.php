@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\conductorController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\VehiculoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +38,3 @@ Route::get('pdf', [VehiculoController::class, 'pdf'])->name('vehiculo.pdf');
 
 
 require __DIR__.'/auth.php';
-require __DIR__.'/auth.php';
-
