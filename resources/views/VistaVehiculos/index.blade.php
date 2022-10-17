@@ -15,7 +15,7 @@
                                     class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
                                     Registrar un Vehiculo</a>
 
-                                <a href="{{ Route('vehiculo.pdf') }}"
+                                <a href="{{ Route('vehiculo.pdf') }}" target="_blank"
                                     class="bg-blue-500 dark:bg-gray-100 text-white active:bg-blue-600 dark:text-gray-800 dark:active:text-gray-700 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">Imprimir
                                 </a>
                             </div>
@@ -40,7 +40,7 @@
                                     <td class="px-4 py-3 text-sm uppercase">{{ $cars->placa }}</td>
                                     <td class="px-4 py-3 text-xs uppercase">{{ $cars->marca }}</td>
                                     <td class="px-4 py-3 text-xs uppercase">{{ $cars->modelo }}</td>
-                                    <td class="px-4 py-3 text-xs ">{{ $cars->año }}</td>
+                                    <td class="px-4 py-3 text-xs ">{{ $cars->anio }}</td>
                                     <td class="px-4 py-3 text-xs uppercase">{{ $cars->propietario }}</td>
                                     <td class="px-4 py-3 text-xs">
 
