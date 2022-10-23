@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Conductor;
+use App\Models\User;
 use App\Models\Vehiculo;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use function PHPUnit\Framework\isNull;
 
 class VehiculoController extends Controller
 {
@@ -14,7 +19,10 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        $carros = Vehiculo::get();
+        $carros = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
+            ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
+            ->join('users as u', 'u.id', '=', 'c.user_id')
+            ->select('vehiculos.*', 'u.nombre as propietario')->get();
         // dd($carros);
         return view('VistaVehiculos.index', compact('carros'));
     }
@@ -26,7 +34,10 @@ class VehiculoController extends Controller
      */
     public function create()
     {
-        return view('VistaVehiculos.create');
+        $propietario = Conductor::join('clientes as c', 'c.id', '=', 'conductors.cliente_id')
+            ->join('users as u', 'u.id', '=', 'c.user_id')
+            ->select('conductors.*', 'u.nombre as propietario')->get();
+        return view('VistaVehiculos.create', compact('propietario'));
     }
 
     /**
@@ -37,12 +48,24 @@ class VehiculoController extends Controller
      */
     public function store(Request $r)
     {
-        $user = new Vehiculo();
-        $user->placa = $r->placa;
-        $user->marca = $r->marca;
-        $user->modelo = $r->modelo;
-        $user->año = $r->anio;
-        $user->save();
+        // dd($r);
+        // $this->validate($r, [
+        //     'placa' => 'required|string|max:255',
+        //     'marca' => 'required|string|max:255',
+        //     'modelo' => 'required|string|max:255',
+        //     'anio' => 'required|date',
+        //     'estado' => 'required|string|max:255',
+        //     'id_conductor' => 'required|numeric',
+        // ]);
+
+        $vehiculo = new Vehiculo();
+        $vehiculo->placa = $r->placa;
+        $vehiculo->marca = $r->marca;
+        $vehiculo->modelo = $r->modelo;
+        $vehiculo->anio = $r->anio;
+        $vehiculo->estado =  $r->estado;
+        $vehiculo->id_conductor =  $r->propietario;
+        $vehiculo->save();
 
         return redirect()->route('vehiculo.index');
     }
@@ -66,8 +89,13 @@ class VehiculoController extends Controller
      */
     public function edit($id)
     {
-        $carro = Vehiculo::where('id', $id)->first();
-        return view('VistaVehiculos.edit', compact('carro'));
+        $propietarios = User::get();
+        $carro = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
+            ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
+            ->join('users as u', 'u.id', '=', 'c.user_id')
+            ->where('vehiculos.id', $id)
+            ->select('vehiculos.*', 'u.nombre as propietario')->first();
+        return view('VistaVehiculos.edit', compact('carro', 'propietarios'));
     }
 
     /**
@@ -77,15 +105,18 @@ class VehiculoController extends Controller
      * @param  \App\Models\Vehiculo  $vehiculo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $r, Vehiculo $v)
+    public function update(Request $r, Vehiculo $vehiculo)
     {
-        // dd($v);
-        $v->id = $r->id;
-        $v->placa = $r->placa;
-        $v->marca =  $r->marca;
-        $v->modelo = $r->modelo;
-        $v->año =  $r->anio;
-        $v->save();
+        // dd($r);
+        $vehiculo->id = $r->id;
+        $vehiculo->placa = $r->placa;
+        $vehiculo->marca = $r->marca;
+        $vehiculo->modelo = $r->modelo;
+        $vehiculo->anio = $r->anio;
+        $vehiculo->estado =  $r->estado;
+        $vehiculo->id_conductor =  $r->id_conductor;
+        // $vehiculo->updated_at = date('Y-m-d h:m:s');
+        $vehiculo->save();
 
         return redirect()->route('vehiculo.index');
     }
@@ -100,6 +131,35 @@ class VehiculoController extends Controller
     {
         // dd($Vehiculo);
         $Vehiculo->delete();
+        return redirect()->route('vehiculo.index');
+    }
+
+    public function pdf(Vehiculo $vehiculo)
+    {
+
+        $cars = Vehiculo::join('conductors as co', 'co.id', '=', 'vehiculos.id_conductor')
+        ->join('clientes as c', 'c.id', '=', 'co.cliente_id')
+        ->join('users as u', 'u.id', '=', 'c.user_id')
+        ->select('vehiculos.*', 'u.nombre as propietario')->get();
+
+        $pdf = Pdf::loadView('VistaVehiculos.imprimir', ['cars' => $cars])
+            ->setPaper('letter', 'portrait');
+
+        return $pdf->stream('Lista de Vehiculos' . '.pdf', ['Attachment' => 'true']);
+    }
+
+    public function estado(Request $r, Vehiculo $vehiculo)
+    {
+        // dd($r);
+        $vehiculo = Vehiculo::find($r->id);
+        $vehiculo->placa = $r->placa;
+        $vehiculo->marca = $r->marca;
+        $vehiculo->modelo = $r->modelo;
+        $vehiculo->anio = $r->anio;
+        $vehiculo->estado =  $r->estado;
+        $vehiculo->id_conductor =  $r->propietario;
+        $vehiculo->save();
+
         return redirect()->route('vehiculo.index');
     }
 }

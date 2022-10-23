@@ -19,9 +19,16 @@ return new class extends Migration
             $table->string('placa');
             $table->string('marca');
             $table->string('modelo');
-            $table->date('año');
+            $table->date('anio');
+            $table->string('estado');
+            $table->unsignedBigInteger('id_conductor')->nullable();
             $table->timestamps();
 
+            $table->foreign('id_conductor')
+            ->references('id')
+            ->on('conductors')
+            ->onDelete('Cascade')
+            ->onCascade('Cascade');
         });
     }
 

@@ -208,8 +208,11 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
+    //funcion para exportar en pdf
+    Barryvdh\DomPDF\ServiceProvider::class,
 
     'aliases' => Facade::defaultAliases()->merge([
+        'PDF' => Barryvdh\DomPDF\Facade::Class,
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 

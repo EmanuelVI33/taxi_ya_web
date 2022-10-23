@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Administrador;
 use App\Models\Cliente;
 use App\Models\User;
+use App\Models\Conductor;
+use App\Models\Cliente;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,6 +20,23 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        $dario = User::create([
+            'nombre' => 'Dario',
+            'apellido' => 'Suarez Lazarte',
+            'telefono' => '65085392',
+            'email' => 'dario@correo.com',
+            'password' => Hash::make('S0123456789'),
+            'email_verified_at' => '2022-10-16 03:26:32'
+        ])->assignRole('admin');
+
+        Administrador::create([
+            'user_id' => $dario->id,
+        ]);
+
+        Cliente::create([
+            'user_id' => $dario->id,
+        ]);
+
         $guido = User::create([
             'nombre' => 'Guido',
             'apellido' => 'Salazar Vargas',
@@ -31,6 +50,18 @@ class UserSeeder extends Seeder
             'user_id' => $guido->id,
         ]);
 
+        $cliente2 = Cliente::create([
+            'user_id' => $guido->id,
+        ]);
+
+        Conductor::create([
+            'cliente_id' => $cliente2->id,
+            'ci' => '9668001',
+            'ocupado' => 0,
+            'fotoAntecedente' => '',
+            'fotoLicencia' => '',
+            'fotoTIC' => '',
+        ]);
         $julio = User::create([
             'nombre' => 'Julio Cesar',
             'apellido' => 'Suarez Torrelio',
@@ -43,6 +74,20 @@ class UserSeeder extends Seeder
         Administrador::create([
             'user_id' => $julio->id,
         ]);
+
+        $cliente3 = Cliente::create([
+            'user_id' => $julio->id,
+        ]);
+
+        Conductor::create([
+            'cliente_id' => $cliente3->id,
+            'ci' => '9668001',
+            'ocupado' => 0,
+            'fotoAntecedente' => '',
+            'fotoLicencia' => '',
+            'fotoTIC' => '',
+        ]);
+
 
         $christian = User::create([
             'nombre' => 'Christian',
@@ -57,6 +102,18 @@ class UserSeeder extends Seeder
             'user_id' => $christian->id,
         ]);
 
+        $cliente4 = Cliente::create([
+            'user_id' => $christian->id,
+        ]);
+
+        Conductor::create([
+            'cliente_id' => $cliente4->id,
+            'ci' => '9668001',
+            'ocupado' => 0,
+            'fotoAntecedente' => '',
+            'fotoLicencia' => '',
+            'fotoTIC' => '',
+        ]);
         $emanuel = User::create([
             'nombre' => 'Emanuel',
             'apellido' => 'Vaca Ibañez',
@@ -70,24 +127,6 @@ class UserSeeder extends Seeder
             'user_id' => $emanuel->id,
         ]);
 
-        $dario = User::create([
-            'nombre' => 'Dario',
-            'apellido' => 'Suarez Lazarte',
-            'telefono' => '65085392',
-            'email' => 'dario@correo.com',
-            'password' => Hash::make('S0123456789'),
-            'email_verified_at' => '2022-10-16 03:26:32'
-        ])->assignRole('admin');
-
-        Cliente::create([
-            'user_id' => $dario->id,
-            'fecha_nacimiento' => '2002-02-18',
-        ]);
-        //esto me vuelve el primer cliente xd (todo sea por el testing)
-
-        Administrador::create([
-            'user_id' => $dario->id,
-        ]);
 
         //Poblar tabla Usuario relacionadas con la tabla Cliente
         User::create([
