@@ -6,7 +6,6 @@ use App\Models\Administrador;
 use App\Models\Cliente;
 use App\Models\User;
 use App\Models\Conductor;
-use App\Models\Cliente;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
