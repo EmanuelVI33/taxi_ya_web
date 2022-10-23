@@ -61,6 +61,7 @@ class UserSeeder extends Seeder
             'fotoLicencia' => '',
             'fotoTIC' => '',
         ]);
+
         $julio = User::create([
             'nombre' => 'Julio Cesar',
             'apellido' => 'Suarez Torrelio',
@@ -86,7 +87,6 @@ class UserSeeder extends Seeder
             'fotoLicencia' => '',
             'fotoTIC' => '',
         ]);
-
 
         $christian = User::create([
             'nombre' => 'Christian',

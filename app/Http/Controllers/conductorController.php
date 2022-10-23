@@ -100,7 +100,8 @@ class ConductorController extends Controller
      */
     public function show($id)
     {
-        //
+        $data['conductor'] = Conductor::find($id);
+        return view('conductor.show',$data);
     }
 
     /**

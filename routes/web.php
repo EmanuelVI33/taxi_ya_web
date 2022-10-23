@@ -37,5 +37,4 @@ Route::resource('vehiculo', VehiculoController::class);
 Route::put('estado/{estado}/update', [VehiculoController::class, 'estado'])->name('vehiculo.estado');
 Route::get('pdf', [VehiculoController::class, 'pdf'])->name('vehiculo.pdf');
 
-//require __DIR__.'/auth.php';
 require __DIR__.'/auth.php';
