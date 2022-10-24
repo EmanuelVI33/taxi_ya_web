@@ -77,23 +77,29 @@
                                                 @csrf
                                                 @method('PUT')
 
-                                                <input type="numeric" name="id"          class="hidden" value="{{ $cars->id }}">
-                                                <input type="text" name="placa"          class="hidden" value="{{ $cars->placa }}">
-                                                <input type="text" name="marca"          class="hidden" value="{{ $cars->marca }}">
-                                                <input type="text" name="modelo"         class="hidden" value="{{ $cars->modelo }}">
-                                                <input type="date" name="anio"           class="hidden" value="{{ $cars->anio }}">
-                                                <input type="numeric" name="propietario" class="hidden" value="{{ $cars->id_conductor }}">
+                                                <input type="numeric" name="id" class="hidden"
+                                                    value="{{ $cars->id }}">
+                                                <input type="text" name="placa" class="hidden"
+                                                    value="{{ $cars->placa }}">
+                                                <input type="text" name="marca" class="hidden"
+                                                    value="{{ $cars->marca }}">
+                                                <input type="text" name="modelo" class="hidden"
+                                                    value="{{ $cars->modelo }}">
+                                                <input type="date" name="anio" class="hidden"
+                                                    value="{{ $cars->anio }}">
+                                                <input type="numeric" name="propietario" class="hidden"
+                                                    value="{{ $cars->id_conductor }}">
 
                                                 @if ($cars->estado == 'HABILITADO')
                                                     <input type="text" name="estado" value="MANTENIMIENTO"
                                                         class="hidden">
                                                     <input type="submit" value="DESHABILITAR"
-                                                    class="px-2 py-1 font-semibold leading-tight text-black bg-gray-300 rounded-full dark:text-red-100 dark:bg-red-700"
+                                                        class="px-2 py-1 font-semibold leading-tight text-black bg-gray-300 rounded-full dark:text-red-100 dark:bg-red-700"
                                                         onclick="return confirm('Desea deshabilitar el Vehiculo?')">
                                                 @else
                                                     <input type="text" name="estado" value="HABILITADO" class="hidden">
                                                     <input type="submit" value="HABILITAR"
-                                                    class="px-2 py-1 font-semibold leading-tight text-black bg-lime-300 rounded-full dark:text-red-100 dark:bg-red-700"
+                                                        class="px-2 py-1 font-semibold leading-tight text-black bg-lime-300 rounded-full dark:text-red-100 dark:bg-red-700"
                                                         onclick="return confirm('Desea habilitar el Vehiculo?')">
                                                 @endif
                                             </form>
@@ -116,4 +122,87 @@
             </div>
         </div>
     </div>
+
+    <div class="mt-4 mx-4">
+        <div class="md:col-span-2 xl:col-span-3 text-center font-semibold">
+            <p class="text-lg">Mapa</p>
+        </div>
+        <div class="mt-4 mx-4">
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full overflow-x-auto">
+                    Hola mundo
+                    <br>
+                    <label id="demoxd" value="getLocation()"></label>
+
+                    <br>
+                    <button onclick="getLocation()">Obtener Ubicacion</button>
+                    <p id="demo"></p>
+                    <div class="w-1/2">
+                        <x-maps-leaflet :centerPoint="['lat' => -17.8489585, 'long' => -63.1678671]" :markers="[['lat' => -17.8489585, 'long' => -63.1678671]]" :zoomLevel="14"></x-maps-leaflet>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button onclick="findMe()">Mostrar ubicación</button>
+	<div id="map"></div>
+
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRG_W60lToMEX8KbmnZGNAquLkkVVrsO8"></script>
+	<script>
+		function findMe(){
+			var output = document.getElementById('map');
+
+			// Verificar si soporta geolocalizacion
+			if (navigator.geolocation) {
+				output.innerHTML = "<p>Tu navegador soporta Geolocalizacion</p>";
+			}else{
+				output.innerHTML = "<p>Tu navegador no soporta Geolocalizacion</p>";
+			}
+
+			//Obtenemos latitud y longitud
+			function localizacion(posicion){
+
+				var latitude = posicion.coords.latitude;
+				var longitude = posicion.coords.longitude;
+
+				var imgURL = "https://maps.googleapis.com/maps/api/staticmap?center="+latitude+","+longitude+"&size=600x300&markers=color:red%7C"+latitude+","+longitude+"&key=AIzaSyCRG_W60lToMEX8KbmnZGNAquLkkVVrsO8";
+
+				output.innerHTML ="<img src='"+imgURL+"'>";
+
+
+
+			}
+
+			function error(){
+				output.innerHTML = "<p>No se pudo obtener tu ubicación</p>";
+
+			}
+
+			navigator.geolocation.getCurrentPosition(localizacion,error);
+
+		}
+
+
+	</script>
+
+    <script>
+        var x = document.getElementById("demoxd");
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            // x.innerHTML = position.coords.longitude;
+            // x.innerHTML ="Latitude: " + position.coords.latitude +
+            // "<br>Longitude: " + position.coords.longitude;
+            x.innerHTML = "Latitude: " + position.coords.latitude +
+                "<br>Longitude: " + position.coords.longitude;
+            var imgURL = "";
+        }
+    </script>
 @endsection
