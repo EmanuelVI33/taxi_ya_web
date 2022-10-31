@@ -27,6 +27,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::resource('conductor',ConductorController::class);
+Route::get('/repo-conductor-xlsx',[ConductorController::class,'exportExcel'])->name('repo-conductor-xlsx');
+Route::get('/repo-conductor-html',[ConductorController::class,'exportHtml'])->name('repo-conductor-html');
 
 Route::resource('solicitud', SolicitudController::class);
 Route::post('/solicitud/{solicitud}', [SolicitudController::class,'accepted'])->name('solicitud.accepted');
@@ -35,7 +37,7 @@ Route::resource('cliente', ClienteController::class);
 Route::get('download', [ClienteController::class, 'downloadPDF'])->name('download-pdf');
 
 Route::resource('usuario', UserController::class);
-Route::get('/repo-user',[UserController::class,'exportExcel'])->name('repo-user');
+
 
 
 
