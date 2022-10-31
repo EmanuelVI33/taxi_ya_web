@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BVehiculoCreateEvent;
 use App\Models\Conductor;
 use App\Models\User;
 use App\Models\Vehiculo;
@@ -48,6 +49,7 @@ class VehiculoController extends Controller
      */
     public function store(Request $r)
     {
+
         // dd($r);
         // $this->validate($r, [
         //     'placa' => 'required|string|max:255',
@@ -57,7 +59,7 @@ class VehiculoController extends Controller
         //     'estado' => 'required|string|max:255',
         //     'id_conductor' => 'required|numeric',
         // ]);
-
+            // dd($r->ip());
         $vehiculo = new Vehiculo();
         $vehiculo->placa = $r->placa;
         $vehiculo->marca = $r->marca;
@@ -66,7 +68,9 @@ class VehiculoController extends Controller
         $vehiculo->estado =  $r->estado;
         $vehiculo->id_conductor =  $r->propietario;
         $vehiculo->save();
+        $vehiculo->ip =  $r->ip();
 
+        event(new BVehiculoCreateEvent($vehiculo));
         return redirect()->route('vehiculo.index');
     }
 
