@@ -35,8 +35,8 @@ Route::post('/solicitud/{solicitud}', [SolicitudController::class,'accepted'])->
 
 Route::resource('cliente', ClienteController::class);
 Route::get('download', [ClienteController::class, 'downloadPDF'])->name('download-pdf');
-Route::get('/repo-cliente',[ClienteController::class,'exportExcel'])->name('excel');
-
+Route::get('/repo-cliente-xlsx',[ClienteController::class,'exportExcel'])->name('repo-cliente-xlsx');
+Route::get('/repo-cliente-html',[ClienteController::class,'exportHtml'])->name('repo-cliente-html');
 
 Route::resource('usuario', UserController::class);
 

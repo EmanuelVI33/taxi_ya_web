@@ -111,7 +111,12 @@ class ClienteController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new ClientesExport,'repo-user.xlsx');
+        return Excel::download(new ClientesExport,'repo-clientes.xlsx');
+    }
+
+    public function exportHtml()
+    {
+        return Excel::download(new ClientesExport,'repo-clientes.html');
     }
 
 }
