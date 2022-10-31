@@ -49,17 +49,8 @@ class UserSeeder extends Seeder
             'user_id' => $guido->id,
         ]);
 
-        $cliente2 = Cliente::create([
+        Cliente::create([
             'user_id' => $guido->id,
-        ]);
-
-        Conductor::create([
-            'cliente_id' => $cliente2->id,
-            'ci' => '9668001',
-            'ocupado' => 0,
-            'fotoAntecedente' => '',
-            'fotoLicencia' => '',
-            'fotoTIC' => '',
         ]);
 
         $julio = User::create([
@@ -75,44 +66,10 @@ class UserSeeder extends Seeder
             'user_id' => $julio->id,
         ]);
 
-        $cliente3 = Cliente::create([
+        Cliente::create([
             'user_id' => $julio->id,
         ]);
 
-        Conductor::create([
-            'cliente_id' => $cliente3->id,
-            'ci' => '9668001',
-            'ocupado' => 0,
-            'fotoAntecedente' => '',
-            'fotoLicencia' => '',
-            'fotoTIC' => '',
-        ]);
-
-        $christian = User::create([
-            'nombre' => 'Christian',
-            'apellido' => 'Cutile Maldonado',
-            'telefono' => '73606371',
-            'email' => 'christian@correo.com',
-            'password' => Hash::make('C0123456789'),
-            'email_verified_at' => '2022-10-16 03:26:32'
-        ])->assignRole('admin');
-
-        Administrador::create([
-            'user_id' => $christian->id,
-        ]);
-
-        $cliente4 = Cliente::create([
-            'user_id' => $christian->id,
-        ]);
-
-        Conductor::create([
-            'cliente_id' => $cliente4->id,
-            'ci' => '9668001',
-            'ocupado' => 0,
-            'fotoAntecedente' => '',
-            'fotoLicencia' => '',
-            'fotoTIC' => '',
-        ]);
         $emanuel = User::create([
             'nombre' => 'Emanuel',
             'apellido' => 'Vaca Ibañez',
@@ -123,6 +80,10 @@ class UserSeeder extends Seeder
         ])->assignRole('admin');
 
         Administrador::create([
+            'user_id' => $emanuel->id,
+        ]);
+
+        Cliente::create([
             'user_id' => $emanuel->id,
         ]);
 
