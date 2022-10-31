@@ -166,6 +166,7 @@ class ConductorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Conductor::destroy($id);
+        return redirect()->route('conductor.index');
     }
 }

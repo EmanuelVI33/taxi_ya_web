@@ -138,7 +138,8 @@ class SolicitudController extends Controller
             'foto' => $solicitud->foto,
             'ocupado' => 0,
         ]);
-        dd('si llega');
+        Solicitud::destroy($id);
+        return redirect()->route('solicitud.index');
     }
 
     /**

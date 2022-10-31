@@ -125,6 +125,20 @@
                                     <i class="fa-solid fa-car-side"></i>
                                     <span>&#160 Postular a conductor</span>
                                 </a>
+
+
+                                {{-- BOTON DE PRUEBA --}}
+                                {{-- BOTON DE PRUEBA --}}
+
+                                <a href="{{route('repo-user')}}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                    <i class="fa-solid fa-car-side"></i>
+                                    <span>OBTENER REPORTE DE USUARIOS</span>
+                                </a>
+
+                                {{-- BOTON DE PRUEBA --}}
+                                {{-- BOTON DE PRUEBA --}}
+
+                                
                             </li>
                         </ul>
                     </li>

@@ -35,6 +35,7 @@ Route::resource('cliente', ClienteController::class);
 Route::get('download', [ClienteController::class, 'downloadPDF'])->name('download-pdf');
 
 Route::resource('usuario', UserController::class);
+Route::get('/repo-user',[UserController::class,'exportExcel'])->name('repo-user');
 
 
 
