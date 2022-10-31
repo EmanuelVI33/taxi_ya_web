@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Cliente;
 use App\Models\Conductor;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\ConductorsExport;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -180,5 +181,16 @@ class ConductorController extends Controller
     public function exportHtml()
     {
         return Excel::download(new ConductorsExport,'repo-conductor.html');
+    }
+
+    public function downloadPDF()
+    {
+        $conductors = Conductor::all();
+
+        view()->share('conductor.download', $conductors);
+
+        $pdf = Pdf::loadView('conductor.download', ['conductors' => $conductors])->setPaper('letter', 'portrait');
+
+        return $pdf->stream('Lista de Conductores' . '.pdf', ['Attachment' => 'true']);
     }
 }
