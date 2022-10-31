@@ -32,7 +32,12 @@ Route::resource('solicitud', SolicitudController::class);
 Route::post('/solicitud/{solicitud}', [SolicitudController::class,'accepted'])->name('solicitud.accepted');
 
 Route::resource('cliente', ClienteController::class);
+Route::get('download', [ClienteController::class, 'downloadPDF'])->name('download-pdf');
+
 Route::resource('usuario', UserController::class);
+
+
+
 Route::resource('vehiculo', VehiculoController::class);
 Route::put('estado/{estado}/update', [VehiculoController::class, 'estado'])->name('vehiculo.estado');
 Route::get('pdf', [VehiculoController::class, 'pdf'])->name('vehiculo.pdf');
