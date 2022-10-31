@@ -92,8 +92,8 @@ class UserController extends Controller
         //
     }
 
-    public function exportExcel()
-    {
-        return Excel::download(new UsersExport,'repo-user.xlsx');
-    }
+    // public function exportExcel()
+    // {
+    //     return Excel::download(new UsersExport,'repo-user.xlsx');
+    // }
 }

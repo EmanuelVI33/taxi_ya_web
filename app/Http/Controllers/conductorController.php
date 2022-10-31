@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Models\Cliente;
 use App\Models\Conductor;
 use Illuminate\Http\Request;
+use App\Exports\ConductorsExport;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 
@@ -168,5 +170,15 @@ class ConductorController extends Controller
     {
         Conductor::destroy($id);
         return redirect()->route('conductor.index');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new ConductorsExport,'repo-conductor.xlsx');
+    }
+
+    public function exportHtml()
+    {
+        return Excel::download(new ConductorsExport,'repo-conductor.html');
     }
 }
