@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ClienteController extends Controller
 {
@@ -88,4 +90,21 @@ class ClienteController extends Controller
     {
         //
     }
+
+
+    public function downloadPDF(Cliente $cliente)
+    {
+
+        $clientes = Cliente::all();
+        
+        view()->share('cliente.download', $clientes);
+        // $pdf = PDF::loadView('cliente.download',['clientes'=>$clientes]);
+        // return $pdf->download('Lista de Clientes' . '.pdf'); //Para que descargue directo el pdf
+        $pdf = Pdf::loadView('Cliente.download', ['clientes' => $clientes])
+            ->setPaper('letter', 'portrait');
+
+        return $pdf->stream('Lista de Clientes' . '.pdf', ['Attachment' => 'true']);
+
+    }
+
 }
