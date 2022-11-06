@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Events\BVehiculoCreateEvent;
 use App\Events\BVehiculoDestroyEvent;
 use App\Events\BVehiculoEditEvent;
+use App\Models\Bitacora;
+use App\Models\BitacoraVehiculo;
 use App\Models\Conductor;
 use App\Models\User;
 use App\Models\Vehiculo;
@@ -142,6 +144,17 @@ class VehiculoController extends Controller
         event(new BVehiculoDestroyEvent($Vehiculo));
         $Vehiculo->delete();
         return redirect()->route('vehiculo.index');
+    }
+
+    public function bitacora(Vehiculo $vehiculo)
+    {
+
+        $bitacora = BitacoraVehiculo::get();
+
+        $pdf = Pdf::loadView('VistaBitacoras.BitacoraVehiculo', ['bitacora' => $bitacora])
+            ->setPaper('letter', 'portrait');
+
+        return $pdf->stream('Lista de Vehiculos' . '.pdf', ['Attachment' => 'true']);
     }
 
     public function pdf(Vehiculo $vehiculo)
