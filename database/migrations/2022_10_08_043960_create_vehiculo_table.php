@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->foreign('id_conductor')
             ->references('id')
-            ->on('conductors')
+            ->on('conductores')
             ->onDelete('Cascade')
             ->onCascade('Cascade');
         });

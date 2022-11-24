@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cliente extends Model
 {
+    public $table = "clientes"; // Especificar el nombre de la tabla
+
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'fecha_nacimiento'
+        'fecha_nacimiento',
+        'foto',
     ];
 
     public function user(){
