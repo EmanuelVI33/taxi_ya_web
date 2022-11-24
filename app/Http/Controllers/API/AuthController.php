@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Cliente;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +20,14 @@ class AuthController extends Controller
             'apellido' => ['required', 'string', 'max:255'],
             'telefono' => ['required', 'max:10'],
             'password' => ['required', 'confirmed'],
+            'foto' => ['image','mimes:jpeg,png,jpg,gif,svg'], 
         ]);
+
+        if ($imagen = $request->file('foto')) {
+            $rutaGuardarImagen = 'cliente-fotos/';
+            $imageUser = Str::uuid() . "." . $imagen->getClientOriginalExtension();
+            $imagen->move($rutaGuardarImagen, $imageUser);
+        }
 
         $user = User::create([
             'nombre' => $request->nombre,
@@ -26,12 +35,27 @@ class AuthController extends Controller
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
             'password' => Hash::make($request->password),
+            
+        ]);
+        
+        $user->assignRole('cliente');
+        
+        $cliente = Cliente::create([
+            'user_id' => $user->id,
+            'foto' => $imageUser ?? '',
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;  
 
         $reponse = [
-            'user' => $user,
+            'user' => [
+                'nombre' => $user->nombre,
+                'apellido' => $user->apellido,
+                'email' => $user->email,
+                'telefono' => $user->telefono,
+                'role' => 'cliente',
+            ],    
+            'image' => $cliente->foto,
             'token' => $token,
         ];
 
@@ -56,8 +80,16 @@ class AuthController extends Controller
 
         $token = $user->createToken('myapptoken')->plainTextToken;  
 
+
         $response = [
-            'user' => $user,
+            'user' => [
+                'nombre' => $user->nombre,
+                'apellido' => $user->apellido,
+                'email' => $user->email,
+                'telefono' => $user->telefono,
+                'role' => 'cliente',
+            ],
+            'image' => $user->cliente->foto,
             'token' => $token
         ];
 
@@ -66,8 +98,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        // auth()->user()->tokens()->delete();  // Elimina token
-        auth()->user->token()->revoke();
+        auth()->user()->tokens()->delete();  // Elimina token
         
         return [
             'message' => 'Logged Out'

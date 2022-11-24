@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -50,8 +51,6 @@ class UserController extends Controller
         return response($response, 200);
     }
 
-   
-
     /**
      * Update the specified resource in storage.
      *
@@ -81,15 +80,17 @@ class UserController extends Controller
             $user->password = Hash::make($request->new_password);
         }
 
+        $cliente = $user->cliente;
+        $fotoCliente = $cliente->foto;
+
         // Verificar si existe imagen
-        if ($request->hasFile('foto')) {
-            $path = $request->foto->store('public/clientes');
-            if ($user->foto != '') {
-                Storage::disk('public')->delete(public_path($user->foto));
-            } 
-            $cliente = $user->cliente;
-            $cliente->foto = $path;
-            $cliente->update();  
+        if ($imagen = $request->file('foto')) {
+            $rutaGuardarImagen = 'cliente-fotos/';
+            $imageUser = Str::uuid() . "." . $imagen->getClientOriginalExtension();
+            if ($fotoCliente != null) { // Eliminar foto anterior
+                Storage::delete('cliente-fotos/' . $fotoCliente);
+            }
+            $imagen->move($rutaGuardarImagen, $imageUser);
         }
 
         if ($request->nombre != null) 
@@ -100,8 +101,11 @@ class UserController extends Controller
             $user->telefono = $request['telefono'];
         if ($request->email != null) 
             $user->email = $request['email']; 
-
+            
         $user->update();
+
+        $cliente->foto = $imageUser ?? '';
+        $cliente->update();
         
         $response = [
             'user' => [
@@ -139,6 +143,7 @@ class UserController extends Controller
                 'apellido' => $user->apellido,
                 'telefono' => $user->telefono,
             ],
+            'role' => 'cliente',
             'image' => $user->cliente->foto,
         ];
 
