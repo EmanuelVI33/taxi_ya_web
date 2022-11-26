@@ -23,37 +23,40 @@ class AuthController extends Controller
             'foto' => ['image','mimes:jpeg,png,jpg,gif,svg'], 
         ]);
 
-        if ($imagen = $request->file('foto')) {
-            $rutaGuardarImagen = 'cliente-fotos/';
-            $imageUser = Str::uuid() . "." . $imagen->getClientOriginalExtension();
-            $imagen->move($rutaGuardarImagen, $imageUser);
-        }
+        $fotoCliente = $request->file('foto')->store('public/cliente');
+
+        // if ($imagen = $request->file('foto')) {
+        //     $rutaGuardarImagen = 'cliente-fotos/';
+        //     $imageUser = Str::uuid() . "." . $imagen->getClientOriginalExtension();
+        //     $imagen->move($rutaGuardarImagen, $imageUser);
+        // }
 
         $user = User::create([
+            'id' => $request->id,
             'nombre' => $request->nombre,
             'email' => $request->email,
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
             'password' => Hash::make($request->password),
-            
         ]);
         
         $user->assignRole('cliente');
         
         $cliente = Cliente::create([
             'user_id' => $user->id,
-            'foto' => $imageUser ?? '',
+            'foto' => $fotoCliente ?? '',
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;  
 
         $reponse = [
             'user' => [
+                'id' => $user->id,
                 'nombre' => $user->nombre,
                 'apellido' => $user->apellido,
                 'email' => $user->email,
                 'telefono' => $user->telefono,
-                'role' => 'cliente',
+                'role' => $user->getRoleNames(),
             ],    
             'image' => $cliente->foto,
             'token' => $token,
@@ -80,14 +83,14 @@ class AuthController extends Controller
 
         $token = $user->createToken('myapptoken')->plainTextToken;  
 
-
         $response = [
             'user' => [
+                'id' => $user->id,
                 'nombre' => $user->nombre,
                 'apellido' => $user->apellido,
                 'email' => $user->email,
                 'telefono' => $user->telefono,
-                'role' => 'cliente',
+                'role' => $user->getRoleNames(),
             ],
             'image' => $user->cliente->foto,
             'token' => $token

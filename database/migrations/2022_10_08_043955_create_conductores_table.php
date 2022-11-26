@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('fotoTIC')->nullable();
             $table->foreignId('cliente_id', 'id')->on('clientes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
-
+            $table->softDeletes();
         });
     }
 

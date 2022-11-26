@@ -43,13 +43,13 @@ class RegisteredUserController extends Controller
             'foto' => ['image', 'mimes:jpg,jpeg,png,gif,bmp,svg'],
         ]);
 
-        $fotoCliente = '';
-        // Validar si existe imagen
-        if ($imagen = $request->file('foto')) {
-            $rutaGuardarImagen = 'cliente-fotos/';
-            $fotoCliente = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
-            $imagen->move($rutaGuardarImagen, $fotoCliente);   // Movemos la imagen a la carpeta
-        }
+        $fotoCliente = $request->file('foto')->store('public/cliente');
+
+        // if ($imagen = $request->file('foto')) {
+        //     $rutaGuardarImagen = 'cliente-fotos/';
+        //     $fotoCliente = date('YmdHis') . "." . $imagen->getClientOriginalExtension();
+        //     $imagen->move($rutaGuardarImagen, $fotoCliente);   // Movemos la imagen a la carpeta
+        // }
 
         $user = User::create([
             'nombre' => $request->nombre,

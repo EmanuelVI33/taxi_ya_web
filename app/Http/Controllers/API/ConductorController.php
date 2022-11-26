@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
+use App\Models\Conductor;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ConductorController extends Controller
 {
@@ -18,16 +19,6 @@ class ConductorController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,7 +26,23 @@ class ConductorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'foto' => ['image'],
+            'CI_Anverso' => ['image'],
+            'CI_Reverso' => ['image'],
+            'fotoAntecedentes' => ['image'],
+            'fotoLicencia' => ['image'],
+            'fotoTIC' => ['image'],
+        ]);
+
+        $cliente_id = auth()->user->cliente->id;
+
+        
+
+        $conductor = Conductor::Create([
+            'cliente_id' => $cliente_id,
+
+        ]);
     }
 
     /**
@@ -45,17 +52,6 @@ class ConductorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

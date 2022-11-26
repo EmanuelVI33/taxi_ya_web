@@ -13,11 +13,18 @@ Route::post('/logout', [AuthApi::class, 'logout'])
     ->name('api.logout')
     ->middleware('auth:sanctum');
 
-Route::post('/user-detail', [UserApi::class, 'getDetail'])
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::apiResource('user', UserApi::class)->middleware('auth:sanctum');
+    
+    Route::post('/user-detail', [UserApi::class, 'getDetail'])
     ->name('api.get_detail')
     ->middleware('auth:sanctum');
 
-Route::apiResource('user', UserApi::class)
+    Route::post('/user/restore/{user:id}', [UserApi::class, 'restore'])
+    ->name('api.user_restore')
     ->middleware('auth:sanctum');
+});
+
+
 
     

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -19,10 +18,14 @@ class UserController extends Controller
      */
     public function index()
     {
+        // $users = User::paginate(15);
+
+        // softDelte se debe especificar con query builder
         $users = DB::table('users')
-                ->select('nombre', 'apellido', 'email', 'telefono')
+                ->select('id', 'nombre', 'apellido', 'email', 'telefono')
+                ->where('deleted_at', null)  // Datos Activados
                 ->orderBy('apellido')
-                ->paginate(10);
+                ->paginate(15);
 
         return response($users, 200);
     }
@@ -84,13 +87,11 @@ class UserController extends Controller
         $fotoCliente = $cliente->foto;
 
         // Verificar si existe imagen
-        if ($imagen = $request->file('foto')) {
-            $rutaGuardarImagen = 'cliente-fotos/';
-            $imageUser = Str::uuid() . "." . $imagen->getClientOriginalExtension();
-            if ($fotoCliente != null) { // Eliminar foto anterior
-                Storage::delete('cliente-fotos/' . $fotoCliente);
+        if ($request->hasFile('foto')) {
+            if ($fotoCliente != '') { // Eliminar foto anterior
+                Storage::delete($fotoCliente);
             }
-            $imagen->move($rutaGuardarImagen, $imageUser);
+            $newFotoCliente = $request->file('foto')->store('public/cliente');
         }
 
         if ($request->nombre != null) 
@@ -104,7 +105,7 @@ class UserController extends Controller
             
         $user->update();
 
-        $cliente->foto = $imageUser ?? '';
+        $cliente->foto = $newFotoCliente ?? '';
         $cliente->update();
         
         $response = [
@@ -115,7 +116,7 @@ class UserController extends Controller
                 'apellido' => $user->apellido,
                 'telefono' => $user->telefono,
             ],
-            'image' => $user->cliente->foto,
+            'image' => $user->cliente->foto ?? '',
         ];
         
         return response($response, 201);
@@ -127,12 +128,35 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
+        $cliente = $user->cliente;
+        $fotoCliente = $cliente->foto;
         
+        if ($fotoCliente != '') { // Eliminar foto anterior
+            Storage::delete($fotoCliente);
+        }
+
+        $cliente->delete();
+        $user->delete();
+
+        return response([
+            'message' => 'Usuario eliminado corectamente'
+        ], 201);
     }
 
-    public function getDetail() {
+    public function restore($id) 
+    {
+        // Buscamos en registro desactivados
+        $user = User::onlyTrashed()->find($id);
+
+        $user->restore();
+
+        return response(['message' => 'Usuario Restaurado'], 201);
+    } 
+
+    public function getDetail() 
+    {
         $user = auth()->user();
 
         $response = [
