@@ -16,7 +16,7 @@ Route::post('/logout', [AuthApi::class, 'logout'])
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::apiResource('user', UserApi::class)->middleware('auth:sanctum');
     
-    Route::post('/user-detail', [UserApi::class, 'getDetail'])
+    Route::get('/user-detail', [UserApi::class, 'getDetail'])
     ->name('api.get_detail')
     ->middleware('auth:sanctum');
 

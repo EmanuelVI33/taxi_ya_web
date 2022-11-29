@@ -47,8 +47,9 @@ class UserController extends Controller
                 'nombre' => $user->nombre,
                 'apellido' => $user->apellido,
                 'telefono' => $user->telefono,
+                'role' => $user->getRoleNames(),
             ],
-            'image' => $user->cliente->foto,
+            'image' => str_replace('public', 'storage', $user->cliente->foto),
         ];
 
         return response($response, 200);
@@ -115,8 +116,9 @@ class UserController extends Controller
                 'nombre' => $user->nombre,
                 'apellido' => $user->apellido,
                 'telefono' => $user->telefono,
+                'role' => $user->getRoleNames(),
             ],
-            'image' => $user->cliente->foto ?? '',
+            'image' => str_replace('public', 'storage', $user->cliente->foto),
         ];
         
         return response($response, 201);
@@ -167,8 +169,7 @@ class UserController extends Controller
                 'apellido' => $user->apellido,
                 'telefono' => $user->telefono,
             ],
-            'role' => 'cliente',
-            'image' => $user->cliente->foto,
+            'image' => str_replace('public', 'storage', $user->cliente->foto),
         ];
 
         return response($response, 200);    

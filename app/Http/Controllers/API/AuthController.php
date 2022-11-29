@@ -16,14 +16,17 @@ class AuthController extends Controller
     {
         $request->validate([
             'nombre' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'apellido' => ['required', 'string', 'max:255'],
             'telefono' => ['required', 'max:10'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
-            'foto' => ['image','mimes:jpeg,png,jpg,gif,svg'], 
+            // 'foto' => ['image','mimes:jpeg,png,jpg,gif,svg'], 
         ]);
 
-        $fotoCliente = $request->file('foto')->store('public/cliente');
+        if ($request->hasFile('foto')) {
+            $request->validate(['foto' => 'image','mimes:jpeg,png,jpg,gif,svg']);
+            $fotoCliente = $request->file('foto')->store('public/cliente');
+        }
 
         // if ($imagen = $request->file('foto')) {
         //     $rutaGuardarImagen = 'cliente-fotos/';
