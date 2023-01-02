@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('factura', function (Blueprint $table) {
-            $table->id();
-            $table->date('fecha');
-            $table->string('detalle');
-            $table->integer('total');
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('is_driver')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('factura');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

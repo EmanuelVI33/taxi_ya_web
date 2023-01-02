@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -14,24 +14,45 @@ class AuthController extends Controller
     {
         $request->validate([
             'nombre' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'apellido' => ['required', 'string', 'max:255'],
             'telefono' => ['required', 'max:10'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed'],
+            // 'foto' => ['image','mimes:jpeg,png,jpg,gif,svg'], 
         ]);
 
+        if($request->hasFile('foto'))
+            $fotoCliente = $request->file('foto')->store('public/cliente');
+
         $user = User::create([
+            'id' => $request->id,
             'nombre' => $request->nombre,
             'email' => $request->email,
             'apellido' => $request->apellido,
             'telefono' => $request->telefono,
             'password' => Hash::make($request->password),
         ]);
+        
+        $user->assignRole('cliente');
+        
+        $cliente = Cliente::create([
+            'user_id' => $user->id,
+            'foto' => $fotoCliente ?? '',
+        ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;  
 
         $reponse = [
-            'user' => $user,
+            'user' => [
+                'id' => $user->id,
+                'nombre' => $user->nombre,
+                'apellido' => $user->apellido,
+                'email' => $user->email,
+                'telefono' => $user->telefono,
+                'role' => $user->getRoleNames(),
+                'is_driver' => $user->is_driver,
+            ],    
+            'image' => str_replace('public', 'storage', $cliente->foto) ?? '',
             'token' => $token,
         ];
 
@@ -57,7 +78,16 @@ class AuthController extends Controller
         $token = $user->createToken('myapptoken')->plainTextToken;  
 
         $response = [
-            'user' => $user,
+            'user' => [
+                'id' => $user->id,
+                'nombre' => $user->nombre,
+                'apellido' => $user->apellido,
+                'email' => $user->email,
+                'telefono' => $user->telefono,
+                'role' => $user->getRoleNames(),
+                'is_driver' => $user->is_driver,
+            ],
+            'image' => str_replace('public', 'storage', $user->cliente->foto) ?? '',
             'token' => $token
         ];
 
@@ -66,8 +96,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        // auth()->user()->tokens()->delete();  // Elimina token
-        auth()->user->token()->revoke();
+        auth()->user()->tokens()->delete();  // Elimina token
         
         return [
             'message' => 'Logged Out'
@@ -76,5 +105,3 @@ class AuthController extends Controller
 
     
 }
-
-

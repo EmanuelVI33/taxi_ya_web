@@ -16,7 +16,6 @@ use Illuminate\Validation\Rules\Password;
 //aqui pondre las bitacoras
 use App\Events\BClienteCreateEvent;
 use Illuminate\Support\Facades\DB;
-
 //fin de bitacoras
 
 
@@ -43,6 +42,10 @@ class ConductorController extends Controller
         return view('conductor.create');
     }
 
+    public function is_driver() {
+        return auth()->user->is_driver;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -58,7 +61,6 @@ class ConductorController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required','confirmed',Password::defaults()],
         ]);
-
 
         $fileData_fA = '';
 
@@ -104,7 +106,6 @@ class ConductorController extends Controller
         ]);
 
         return redirect()->route('conductor.index');
-
     }
 
     /**
@@ -181,11 +182,22 @@ class ConductorController extends Controller
      */
     public function destroy($id)
     {
-        Conductor::destroy($id);
+        $conductor = Conductor::Find($id);
+        $cliente = Cliente::Find($conductor->cliente_id);
+        $user = User::Find($cliente->user_id);
+
+        if ($conductor != null && $cliente != null && $user != null) {
+            return redirect()
+                ->route('conductor.index', ['message' => 'Error al eliminar']);
+        }
+
+        $conductor->delete();
+        $cliente->delete();
+        $user->delete();
+
         return redirect()->route('conductor.index');
     }
 
-<<<<<<< Updated upstream
     public function exportExcel()
     {
         return Excel::download(new ConductorsExport,'repo-conductor.xlsx');
@@ -205,7 +217,7 @@ class ConductorController extends Controller
         $pdf = Pdf::loadView('conductor.download', ['conductors' => $conductors])->setPaper('letter', 'portrait');
 
         return $pdf->stream('Lista de Conductores' . '.pdf', ['Attachment' => 'true']);
-=======
+    }
     //funcion para visualizar las bitacoras de mis "clientes"
     public function bitacoraClientes(){
         $cliente = DB::table('bitacora_clientes as bc')
@@ -235,6 +247,5 @@ class ConductorController extends Controller
         })
         ->get();
         return view('VistaBitacoras.bitacoraClientes',compact('cliente'));
->>>>>>> Stashed changes
     }
 }
