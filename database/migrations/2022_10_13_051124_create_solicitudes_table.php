@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('anio');
             $table->string('fotoVehiculo')->nullable();  
             
-            $table->char('estado');    // Estado de la solicitud E (Espera), R(Rechazado) y A(Aceptado)
+            $table->char('estado');    // Estado de la solicitud E (Espera), R(Rechazado), U(Actualizar) y A(Aceptado)
             $table->text('detalle')->nullable();
             $table->timestamps();
         });
